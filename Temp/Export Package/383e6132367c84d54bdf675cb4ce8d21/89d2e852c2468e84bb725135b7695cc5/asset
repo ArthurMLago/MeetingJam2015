@@ -1,0 +1,50 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class RobotControl : MonoBehaviour {
+
+	public GameObject Norte;
+	public GameObject Sul;
+	public GameObject Leste;
+	public GameObject Oeste;
+	public GameObject Nordeste;
+	public GameObject Noroeste;
+	public GameObject Sudeste;
+	public GameObject Sudoeste;
+
+		public GameObject bullet;
+		public float bulletCD;
+		float nxtCD;
+		bool flag = true;
+		public GameObject Jogador;
+		public float speed;
+		// Use this for initialization
+
+		void Start () {
+		nxtCD = 0;
+		}
+		
+		// Update is called once per frame
+		void Update () {
+			Vector2 caminho;
+			caminho = Jogador.transform.position - transform.position;
+			caminho.Normalize();
+			transform.Translate (caminho * speed);
+			if(Time.time >= nxtCD && flag){
+				nxtCD = Time.time + bulletCD;
+			Instantiate(bullet, Norte.transform.position, Norte.transform.rotation);
+			Instantiate(bullet, Sul.transform.position, Sul.transform.rotation);
+			Instantiate(bullet, Leste.transform.position, Leste.transform.rotation);
+			Instantiate(bullet, Oeste.transform.position, Oeste.transform.rotation);
+				flag = false;
+			}
+			if(Time.time >= nxtCD && !flag){
+				nxtCD = Time.time + bulletCD;
+				Instantiate(bullet, Nordeste.transform.position, Nordeste.transform.rotation);
+			Instantiate(bullet, Sudeste.transform.position, Sudeste.transform.rotation);
+			Instantiate(bullet, Noroeste.transform.position, Noroeste.transform.rotation);
+			Instantiate(bullet, Sudoeste.transform.position, Sudoeste.transform.rotation);
+				flag = true;
+			}
+		}
+	}
