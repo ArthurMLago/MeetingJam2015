@@ -11,8 +11,12 @@ public class PlayerController : MonoBehaviour {
 	public float StopThreshold;
 
 	public GameObject LaserPrefab;
+	public GameController gameController;
+
 
 	private GameObject LaserObject;
+
+
 	
 	Vector2 velocity;
 	bool changed;
@@ -46,17 +50,15 @@ public class PlayerController : MonoBehaviour {
 			velocity.y -= Strenght * Time.deltaTime;
 			changed = true;
 		}
-		transform.Translate(velocity);
 
-		transform.Translate(velocity);
-		
-		if (changed == false){
-			if (Mathf.Abs(velocity.x) < StopThreshold){
-				velocity.x = 0;
-			}
-			if (Mathf.Abs(velocity.y) < StopThreshold){
-				velocity.y = 0;
-			}
+		float angle = Vector2.Angle( Vector2.up, velocity);
+		angle = velocity.x < 0.0 ? angle :-angle;
+
+		transform.rotation = Quaternion.Euler(0,0,angle);
+
+
+		if (!((Mathf.Abs(velocity.x) < StopThreshold) && (Mathf.Abs(velocity.y) < StopThreshold))){
+			transform.Translate(Vector2.up * velocity.magnitude);
 		}
  		
 		//Limites da tela:
@@ -115,9 +117,12 @@ public class PlayerController : MonoBehaviour {
 		if (LaserObject != null){
 			LaserObject.transform.position = transform.position;
 		}
-
-
-
-
+	}
+	void OnTriggerEnter2D (Collider2D coll) {
+		if (coll.gameObject.tag == "Velho") {
+			Destroy (coll.gameObject);
+			gameController.DestruirPersonagem();
+			Destroy (gameObject);
+		}
 	}
 }

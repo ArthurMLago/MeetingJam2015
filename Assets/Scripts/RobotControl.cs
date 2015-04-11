@@ -3,30 +3,30 @@ using System.Collections;
 
 public class RobotControl : MonoBehaviour {
 
-	public GameObject Norte;
-	public GameObject Sul;
-	public GameObject Leste;
-	public GameObject Oeste;
+	public  GameObject Norte;
+	public  GameObject Sul;
+	public  GameObject Leste;
+	public  GameObject Oeste;
 
-	public GameObject Cabeca;
+	public  GameObject Cabeca;
 
-	public GameObject bullet;
-	public float bulletCD;
+	public  GameObject bullet;
+	public  float bulletCD;
 
-	public Sprite Still;
-	public Sprite Moving;
+	public  Sprite Still;
+	public  Sprite Moving;
 	
-	public GameObject Jogador;
-	public float speed;
+	public  GameObject Jogador;
+	public  float speed;
 
-	public float StepCooldown;
-	public float StepTime;
+	public  float StepCooldown;
+	public  float StepTime;
 
-	float bulletNextCooldown;
-	float stepNextCooldown;
-	float stepWait;
+	private float bulletNextCooldown;
+	private float stepNextCooldown;
+	private float stepWait;
 
-	float RotationAmount;
+	private float RotationAmount;
 
 
 	// Use this for initialization
@@ -43,7 +43,7 @@ public class RobotControl : MonoBehaviour {
 		if (Time.time >= stepNextCooldown){
 			SpriteRenderer SR = GetComponent<SpriteRenderer>();
 			SR.sprite = Moving;
-			if (Time.time > stepWait){
+			if (Time.time > stepWait) {
 				SR.sprite = Still;
 				Vector2 caminho;
 				caminho = Jogador.transform.position - transform.position;
