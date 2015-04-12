@@ -5,11 +5,11 @@ public class PlayerController : MonoBehaviour {
 	
 	public float ScreenLimitX;
 	public float ScreenLimitY;
-
+	public int HP;
 	public float Strenght;
 	public float Dumping;
 	public float StopThreshold;
-
+	public int tiros;
 	public GameObject LaserPrefab;
 	public GameController gameController;
 
@@ -84,7 +84,7 @@ public class PlayerController : MonoBehaviour {
 
 		//Atirando:
 		bool pressed = false;
-
+		if(tiros>=0){
 		if (Input.GetKey(KeyCode.W)){
 			pressed = true;
 			if (LaserObject == null){
@@ -109,6 +109,8 @@ public class PlayerController : MonoBehaviour {
 				LaserObject = (GameObject)Object.Instantiate(LaserPrefab,transform.position,Quaternion.Euler(0,0,270));
 			}
 		}
+			tiros-=1;
+		}
 
 		if ((pressed == false) && (LaserObject != null)){
 			Destroy(LaserObject);
@@ -121,8 +123,36 @@ public class PlayerController : MonoBehaviour {
 	void OnTriggerEnter2D (Collider2D coll) {
 		if (coll.gameObject.tag == "Velho") {
 			Destroy (coll.gameObject);
-			gameController.DestruirPersonagem();
 			Destroy (gameObject);
+
+		}
+		else 
+		if (coll.gameObject.tag == "Nave") {
+			Destroy (gameObject);
+		}
+
+		else 
+		if (coll.gameObject.tag == "Bala") {
+			HP -= 1;
+			Destroy (coll.gameObject);
+			if(HP == 0){
+				Destroy (gameObject);
+			}
+		}
+		else 
+		if (coll.gameObject.tag == "SucoRoxo") {
+			HP += 1;
+			Destroy (coll.gameObject);
+		}
+		else 
+		if (coll.gameObject.tag == "SucoAzul") {
+			tiros += 5;
+			Destroy (coll.gameObject);
+		}
+		else 
+		if (coll.gameObject.tag == "SucoDub") {
+			//MUDAR APARENCIA E MUDAR TEMPORARIAMENTE O TEMPO DE MEDO DOS VELHOS
+			Destroy (coll.gameObject);
 		}
 	}
 }

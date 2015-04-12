@@ -6,11 +6,9 @@ public class Bullet : MonoBehaviour {
 	public float screenLimitY;
 	public float screenLimitX;
 	public float masterSpeed;
-	float tempo;
 
 	// Use this for initialization
 	void Start () {
-		tempo = Time.time;
 	}
 	
 	// Update is called once per frame
@@ -30,9 +28,4 @@ public class Bullet : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerEnter2D(Collider2D coll){
-		if (coll.gameObject.tag == "Velho") {
-			Destroy (gameObject);//se o tiro fordestruido antes do asteroid, o programa nao chega a destruir o astero
-		}
-	}
 }

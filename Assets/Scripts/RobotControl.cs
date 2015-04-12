@@ -2,12 +2,12 @@
 using System.Collections;
 
 public class RobotControl : MonoBehaviour {
-
+	public  float MaxHP;
+	public  float HPRegen;
 	public  GameObject Norte;
 	public  GameObject Sul;
 	public  GameObject Leste;
 	public  GameObject Oeste;
-
 	public  GameObject Cabeca;
 
 	public  GameObject bullet;
@@ -28,6 +28,10 @@ public class RobotControl : MonoBehaviour {
 
 	private float RotationAmount;
 
+	private float LaserTime;
+
+	private float HP;
+
 
 	// Use this for initialization
 	void Start () {
@@ -35,10 +39,19 @@ public class RobotControl : MonoBehaviour {
 		stepNextCooldown = Time.time + StepCooldown;
 		stepWait = Time.time + StepCooldown + StepTime;
 		RotationAmount = 45/bulletCD;
+
+		HP = MaxHP;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		HP += HPRegen * Time.deltaTime;
+		if (HP >= MaxHP){
+			HP = MaxHP;
+		}
+		float RedIntensity =( 255.0f * (HP/MaxHP));
+		Color myColor = new Vector4(255.0f,RedIntensity,RedIntensity,255.0f);
+		GetComponent<SpriteRenderer>().color = myColor;
 
 		if (Time.time >= stepNextCooldown){
 			SpriteRenderer SR = GetComponent<SpriteRenderer>();
@@ -76,5 +89,22 @@ public class RobotControl : MonoBehaviour {
 		}
 
 
+	}
+
+	void OnTriggerEnter2D(Collider2D coll){
+		if (coll.gameObject.tag == "Laser") {
+			LaserTime = Time.time;
+		}
+	}
+
+	void OnTriggerStay2D(Collider2D coll){
+		if (coll.gameObject.tag == "Laser") {
+			HP -= (Time.time - LaserTime);
+
+			if(HP <= 0){
+				Destroy(Cabeca);
+				Destroy(gameObject);
+			}
+		}
 	}
 }
