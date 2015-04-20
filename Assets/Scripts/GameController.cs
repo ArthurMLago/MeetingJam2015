@@ -10,11 +10,11 @@ public class GameController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (alive == false) {
-			if(Input.GetKey(KeyCode.R)) {
-				Application.LoadLevel("Jogo");
-			}
+//		if (alive == false) {
+		if(Input.GetKey(KeyCode.R)) {
+			Application.LoadLevel("Jogo");
 		}
+//		}
 	}
 
 	public void DestruirPersonagem() {

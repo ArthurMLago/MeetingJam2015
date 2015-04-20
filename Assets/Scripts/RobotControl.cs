@@ -49,8 +49,8 @@ public class RobotControl : MonoBehaviour {
 		if (HP >= MaxHP){
 			HP = MaxHP;
 		}
-		float RedIntensity =( 255.0f * (HP/MaxHP));
-		Color myColor = new Vector4(255.0f,RedIntensity,RedIntensity,255.0f);
+		float RedIntensity = HP/MaxHP;
+		Color myColor = new Vector4(1.0f,RedIntensity,RedIntensity,1.0f);
 		GetComponent<SpriteRenderer>().color = myColor;
 
 		if (Time.time >= stepNextCooldown){

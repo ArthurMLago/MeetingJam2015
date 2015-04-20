@@ -2,10 +2,24 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Follow.cs">
     <Files>
-      <File FileName="Assets/Scripts/RobotControl.cs" Line="9" Column="27" />
-      <File FileName="Assets/Scripts/Bullet.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Follow.cs" Line="25" Column="1" />
+      <File FileName="Assets/Scripts/RobotControl.cs" Line="53" Column="63" />
+      <File FileName="Assets/Scripts/Bullet.cs" Line="17" Column="25" />
+      <File FileName="Assets/Scripts/Follow.cs" Line="15" Column="32" />
+      <File FileName="Assets/Scripts/GameController.cs" Line="9" Column="3" />
+      <File FileName="Assets/Scripts/PlayerController.cs" Line="129" Column="4" />
+      <File FileName="Assets/Scripts/SpawnSucos.cs" Line="24" Column="52" />
     </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="Assembly-CSharp" expanded="True">
+            <Node name="Scripts" expanded="True">
+              <Node name="Follow.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />

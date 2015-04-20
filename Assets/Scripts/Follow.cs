@@ -5,12 +5,16 @@ public class Follow : MonoBehaviour {
 	public GameObject Jogador;
 	public float speed;
 
+	public float ScreenLimitX;
+	public float ScreenLimitY;
+
 	public float LaserNecessario;
 	private float LaserAtual = 0;
+	private float LaserTime;
 	bool velho = true;
 	// Use this for initialization
 	void Start () {
-		
+		LaserAtual = LaserNecessario;
 	}
 	
 	// Update is called once per frame
@@ -23,19 +27,29 @@ public class Follow : MonoBehaviour {
 		angle = caminho.x < 0.0 ? angle :-angle;
 		
 		transform.rotation = Quaternion.Euler(0,0,angle);
-
-		transform.Translate(Vector2.up * Time.deltaTime);
-
-
-
-		if(velho){
-			//Mudar aparencia fantasma velho
-			transform.Translate (caminho * speed * Time.deltaTime);
+		if (velho){
+			transform.Translate(Vector2.up * Time.deltaTime);
+		}else{
+			transform.Translate(-Vector2.up * Time.deltaTime);
 		}
-		else {
-			//Mudar Aparencia Jovem
-			transform.Translate (-1 * caminho * speed * Time.deltaTime);
+
+		Vector2 NewPosition = transform.position;
+		if (transform.position.x > ScreenLimitX){
+			NewPosition.x = ScreenLimitX;
 		}
+		if (transform.position.x < -ScreenLimitX){
+			NewPosition.x = -ScreenLimitX;
+		}
+		if (transform.position.y > ScreenLimitY){
+			NewPosition.y = ScreenLimitY;
+		}
+		if (transform.position.y < -ScreenLimitY){
+			NewPosition.y = -ScreenLimitY;
+		}
+		transform.position = NewPosition;
+
+
+
 	}
 
 	void OnTriggerEnter2D(Collider2D coll){
@@ -44,7 +58,17 @@ public class Follow : MonoBehaviour {
 			velho = true;
 		}
 		if (coll.gameObject.tag == "Laser"){
+			LaserTime = Time.time;
+		}
+	}
 
+	void OnTriggerStay2D(Collider2D coll){
+		if (coll.gameObject.tag == "Laser") {
+			LaserAtual -= (Time.time - LaserTime);
+			
+			if(LaserAtual <= 0){
+				velho = false;
+			}
 		}
 	}
 

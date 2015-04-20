@@ -122,12 +122,14 @@ public class PlayerController : MonoBehaviour {
 	}
 	void OnTriggerEnter2D (Collider2D coll) {
 		if (coll.gameObject.tag == "Velho") {
+			gameController.DestruirPersonagem();
 			Destroy (coll.gameObject);
 			Destroy (gameObject);
 
 		}
 		else 
 		if (coll.gameObject.tag == "Nave") {
+			gameController.DestruirPersonagem();
 			Destroy (gameObject);
 		}
 
@@ -136,6 +138,7 @@ public class PlayerController : MonoBehaviour {
 			HP -= 1;
 			Destroy (coll.gameObject);
 			if(HP == 0){
+				gameController.DestruirPersonagem();
 				Destroy (gameObject);
 			}
 		}
@@ -146,7 +149,7 @@ public class PlayerController : MonoBehaviour {
 		}
 		else 
 		if (coll.gameObject.tag == "SucoAzul") {
-			tiros += 5;
+			tiros += 300;
 			Destroy (coll.gameObject);
 		}
 		else 
